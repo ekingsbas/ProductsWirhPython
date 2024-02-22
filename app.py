@@ -26,7 +26,10 @@ def get_users():
 
 @app.route('/users', methods=['POST'])
 def create_user():
-    # Código para crear un nuevo usuario en la base de datos
+    data = request.get_json()
+    new_user = User(username=data['username'], email=data['email'])
+    db.session.add(new_user)
+    db.session.commit()
     return jsonify({'message': 'User created successfully'})
 
 # Inicia tu aplicación Flask para que pueda manejar solicitudes entrantes desde el navegador
